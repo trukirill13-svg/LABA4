@@ -1,0 +1,37 @@
+@startuml
+!define ENTITY_COLOR #E1F5FF
+!define PK_COLOR #FFE082
+
+entity "Sklad" as warehouse {
+  *id : INT <<PK>>
+  --
+  nazvanie : string
+}
+
+entity "Sotrudnik" as employee {
+  *id : INT <<PK>>
+  --
+  FIO : string
+  id_sklada : INT <<FK>>
+}
+
+entity "Student" as student {
+  *id : INT <<PK>>
+  --
+  FIO : string
+  gruppa : string
+}
+
+entity "Forma" as uniform {
+  *id : INT <<PK>>
+  --
+  razmer : string
+  id_student : INT <<FK>>
+  id_sotrudnik : INT <<FK>>
+  date_vydacha : DATE
+}
+
+warehouse ||--o{ employee : "управляет"
+employee ||--o{ uniform : "выдает"
+student ||--o{ uniform : "получает"
+@enduml
